@@ -1,0 +1,47 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.game{
+    max-width: 425px;
+    display: flex;
+    justify-content: space-between;
+}
+.board-and-status{
+    position: relative;
+    right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.status{
+    font-size: 2rem;
+    text-align: center;
+}
+.board{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    column-gap: 2px;
+}
+.square{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px black solid;
+    width: 31.33%;
+    height: 31.33%;
+    background-color: white;
+}
+.history{
+    list-style: none;
+    position: relative;
+    right: 1rem;
+    font-size: .9rem;
+}
+.history li{
+    width: 154px;
+}
