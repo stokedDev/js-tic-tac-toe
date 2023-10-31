@@ -6,26 +6,30 @@ const history = document.querySelector('.history');
 const playerX_OrOInit = ['X','O'][Math.random() < .5? 0: 1];
 let currentPlayerX_OrO = playerX_OrOInit;
 const historyArr = [];
+const xHistoryArr = [];
+const oHistoryArr = [];
 function createBoardSquares(){
-    for(let i = 1; i <= 9; i++){
+    for(let i = 0; i < 9; i++){
     const squareBtn = document.createElement('button');
     board.appendChild(squareBtn);
-    document.querySelector('.board btn').classList.add('.square');
     }
-    document.querySelectorAll('.board button').forEach((el,i) => el.addEventListener('click', ()=>{
+    document.querySelectorAll('.board button').forEach((el,i) => el.addEventListener('click', () => {
         console.log(`btn ${i} clicked`);
         if(currentPlayerX_OrO === 'X'){
             el.textContent = 'X';
             currentPlayerX_OrO = 'O';
-            historyArr.push({'X': i});
-            CRUDHistory();
-            console.log(historyArr);
-        } else if(currentPlayerX_OrO === 'O'){
+            boardStatus.textContent = `${currentPlayerX_OrO}'s turn`;
+            historyArr.push(['X', i]);
+            xHistoryArr.push(i);
+            declareWinner();
+        }
+        else if(currentPlayerX_OrO === 'O'){
             el.textContent = 'O';
             currentPlayerX_OrO = 'X';
-            historyArr.push({'O': i});
-            CRUDHistory();
-            console.log(historyArr);
+            boardStatus.textContent = `${currentPlayerX_OrO}'s turn`;
+            historyArr.push(['O', i]);
+            oHistoryArr.push(i);
+            declareWinner(); 
         }
     }));
 }
@@ -40,20 +44,18 @@ function declareWinner(){
         [0, 4, 8],
         [2, 4, 6]
     ];
+
+for(let i = 0; i < winLine.length; i++){
+    if(oHistoryArr.includes(winLine[i][0]) && oHistoryArr.includes(winLine[i][1]) && oHistoryArr.includes(winLine[i][2])){
+        boardStatus.textContent = 'O wins!';
+    } else if(xHistoryArr.includes(winLine[i][0]) && xHistoryArr.includes(winLine[i][1]) && xHistoryArr.includes(winLine[i][2])){
+        boardStatus.textContent = 'X wins!';
+    }
 }
-function CRUDHistory(){
-    const historyLi = document.createElement('li');
-    history.appendChild(historyLi);
-    document.querySelectorAll('.history li').querySelectorAll('li').forEach((el,i,arr) => {
-            const goToMoveBtn = document.createElement(`button`).classList.add('history-btn');
-            document.querySelector('.history-btn').textContent = `Go to move ${i}.`;
-        // arr[arr.length - 1].textContent = `Game is at ${historyArr.length === 0? 'first move.': `move ${historyArr.length}`}`;
-        // el.textContent = `Game is at ${historyArr.length === 0? 'first move.': `move ${historyArr.length}`}`;
-    });
 }
+
 function activateGame(){
     boardStatus.textContent = `${currentPlayerX_OrO}'s turn`;
     createBoardSquares();
-    CRUDHistory();
 }
 activateGame();
