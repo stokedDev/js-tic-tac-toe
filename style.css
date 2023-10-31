@@ -26,7 +26,8 @@
     gap: 1px;
     column-gap: 2px;
 }
-.square{
+.board button{
+    cursor: pointer;
     font-size: 2rem;
     display: flex;
     justify-content: center;
